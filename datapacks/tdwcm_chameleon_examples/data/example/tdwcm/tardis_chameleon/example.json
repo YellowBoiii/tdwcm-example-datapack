@@ -1,0 +1,12 @@
+{
+  "name": "example",
+  "display_name": "Example TARDIS",
+  "description": "An example TARDIS added by a datapack",
+  "credit": "TDWCM example pack",
+  "size": [1.375, 2.0725, 0.9375, 0.125],
+  "door_sound": "default",
+  "variants": ["hartnell"],
+  "exterior_portal_close_ticks": 5,
+  "interior_portal_close_ticks": 5,
+  "interior_view_depth": 0.75
+}
