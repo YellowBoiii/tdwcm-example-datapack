@@ -15,7 +15,12 @@ This README explains the example datapack configuration in `data/example/tdwcm/t
   "credit": "TDWCM example pack",
   "size": [1.375, 2.0725, 0.9375, 0.125],
   "door_sound": "default",
-  "variants": [""],
+  "variants": [
+    {
+      "name": "hartnell",
+      "display_name": "Hartness"
+    }
+  ],
   "exterior_portal_close_ticks": 5,
   "interior_portal_close_ticks": 5,
   "interior_view_depth": 0.75
@@ -57,7 +62,35 @@ A variant can be specified as a string:
 "variants": ["massacre"]
 ```
 
+Its display name is generated from its identifier. To specify a custom display name, use an object:
+
+```json
+"variants": [
+  {
+    "name": "hartnell",
+    "display_name": "Hartness"
+  }
+]
+```
+
+`name` is the variant's internal identifier; `display_name` is the name shown to players. The custom display name is optional, and string variants remain supported.
+
+Run `/reload` in-game after adding or changing datapack files.
+
 ## Example resource pack
+
+The datapack defines the Chameleon's data, but its 3D models, textures, and animations are client assets and must be supplied by a **separate resource pack**. Install and enable that resource pack for players who need to see the custom assets.
+
+The mod uses **GeckoLib 4**. Do not forget to use this version with blockbench. Each animation file for a TARDIS model or door must define:
+
+| Animation name | Blockbench / GeckoLib setting | Use |
+|---|---|---|
+| `idle` | Loop: `hold_on_last_frame` | Closed-door pose, selected automatically while the door is closed. |
+| `idle_open` | Loop: `hold_on_last_frame` | Open-door pose, selected automatically while the door is open. |
+| `open` | No loop; one-shot animation | Triggered when the door opens. |
+| `close` | No loop; one-shot animation | Triggered when the door closes. |
+
+Use these same four names in the base animation files and in any variant-specific animation files that override them. 
 
 For the example's `"name": "example"`, resource files use the `tdwcm` asset namespace and these paths:
 
@@ -82,6 +115,3 @@ assets/tdwcm/animations/tardis/tardis_example/hartnell/tardis_example_hartnell.a
 Door assets for variants use the same subfolder and suffix pattern, for example `tardis_door_example_hartnell.geo.json`. A variant's `display_name` only changes its label in the interface; it does not change resource filenames.
 
 The resource pack should have a `pack.mcmeta` at its root and the `assets` directory alongside it. Enable both the datapack and resource pack in the world. Use `/reload` after changing datapack data; resource pack changes may require reloading resource packs with `F3+T` or rejoining the world.
-
-
-Run `/reload` in-game after adding or changing datapack files.
